@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    public bool obstacle;
+    public bool walkable;
     public Vector3 worldPosition;
     
-    public Node(bool _obstacle, Vector3 _worldPosition) 
+    public Node(bool _walkable, Vector3 _worldPosition) 
     {
-        obstacle = _obstacle;
+        walkable = _walkable;
         worldPosition = _worldPosition;
     }
 }
