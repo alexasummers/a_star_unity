@@ -5,7 +5,9 @@ using UnityEngine;
 public class Grid : MonoBehaviour {
 
 	public LayerMask unwalkableMask;
+	//LayerMask hides part of a layer without erasing or deleting
 	public Vector2 gridWorldSize;
+	//Vector2 used to represent 2D points positions using only X and Y    
 	public float nodeRadius;
 	Node[,] grid;
 
