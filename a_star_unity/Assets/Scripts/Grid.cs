@@ -8,15 +8,17 @@ public class Grid : MonoBehaviour {
 	//LayerMask hides part of a layer without erasing or deleting
 	public Vector2 gridWorldSize;
 	//Vector2 used to represent 2D points positions using only X and Y    
-	public float nodeRadius;
-	Node[,] grid; //2d array of nodes
+	public float nodeRadius; 
+	//how much space each individual node covers
+	Node[,] grid; 
+	//2d array of nodes to represent the grid
 
 	float nodeDiameter;
 	int gridSizeX, gridSizeY;
 
-	void Awake() {
+	void Awake() { //how many nodes (based on the radius) can we fit into our grid
 		nodeDiameter = nodeRadius*2;
-		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
+		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter); //rounds to the neariest integer to ensure we don't have a partial node
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
 		CreateGrid();
 	}
@@ -67,8 +69,8 @@ public class Grid : MonoBehaviour {
 	}
 
 	public List<Node> path;
-	void OnDrawGizmos() {
-		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
+	void OnDrawGizmos() { //creates the box around the grid
+		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y)); //use y instead of z axis because the z axis is being represented by the y in the 3d space
 
 		if (grid != null) {
 			foreach (Node n in grid) {
