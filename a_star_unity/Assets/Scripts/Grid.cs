@@ -24,14 +24,14 @@ public class Grid : MonoBehaviour {
 	}
 
 	void CreateGrid() {
-		grid = new Node[gridSizeX,gridSizeY];
-		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2;
+		grid = new Node[gridSizeX,gridSizeY]; //new 2d array of nodes
+		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2; //returning the bottom left corner of our world
 
-		for (int x = 0; x < gridSizeX; x ++) {
+		for (int x = 0; x < gridSizeX; x ++) { //performing collision checks to see if there is an overlap
 			for (int y = 0; y < gridSizeY; y ++) {
 				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
-				grid[x,y] = new Node(walkable,worldPoint, x,y);
+				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask)); //true if we don't collide with an obstacle
+				grid[x,y] = new Node(walkable,worldPoint, x,y); //populating our grid with nodes
 			}
 		}
 	}
@@ -57,7 +57,7 @@ public class Grid : MonoBehaviour {
 	}
 	
 
-	public Node NodeFromWorldPoint(Vector3 worldPosition) {
+	public Node NodeFromWorldPoint(Vector3 worldPosition) { //converts the world position into a grid coordinate
 		float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
 		float percentY = (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y;
 		percentX = Mathf.Clamp01(percentX);
