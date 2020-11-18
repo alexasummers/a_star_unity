@@ -9,7 +9,7 @@ public class Grid : MonoBehaviour {
 	public Vector2 gridWorldSize;
 	//Vector2 used to represent 2D points positions using only X and Y    
 	public float nodeRadius;
-	Node[,] grid;
+	Node[,] grid; //2d array of nodes
 
 	float nodeDiameter;
 	int gridSizeX, gridSizeY;
