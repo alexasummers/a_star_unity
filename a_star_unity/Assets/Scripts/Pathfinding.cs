@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Generic; //using a list
 using UnityEngine;
 
 public class Pathfinding : MonoBehaviour {
@@ -16,24 +16,24 @@ public class Pathfinding : MonoBehaviour {
 	}
 
 	void FindPath(Vector3 startPos, Vector3 targetPos) {
-		Node startNode = grid.NodeFromWorldPoint(startPos);
+		Node startNode = grid.NodeFromWorldPoint(startPos); //convert world positions into nodes (from Grid.cs)
 		Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
-		List<Node> openSet = new List<Node>();
-		HashSet<Node> closedSet = new HashSet<Node>();
-		openSet.Add(startNode);
+		List<Node> openSet = new List<Node>(); //creating a list of nodes for the open set-- the set that has yet to be evaluated
+		HashSet<Node> closedSet = new HashSet<Node>(); 
+		openSet.Add(startNode); //add the starting node to the open set
 
 		while (openSet.Count > 0) {
-			Node node = openSet[0];
-			for (int i = 1; i < openSet.Count; i ++) {
+			Node node = openSet[0]; 
+			for (int i = 1; i < openSet.Count; i ++) { //loop through all the open nodes to find the node with the lowest f-cost
 				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost) {
-					if (openSet[i].hCost < node.hCost)
+					if (openSet[i].hCost < node.hCost) //evaluate the hCosts of the newly found nodes to make sure they are in fact closer to reach the end point than the original
 						node = openSet[i];
 				}
 			}
 
-			openSet.Remove(node);
-			closedSet.Add(node);
+			openSet.Remove(node); //remove the current node from the open set
+			closedSet.Add(node); //add the cuirrent node to the closed set
 
 			if (node == targetNode) {
 				RetracePath(startNode,targetNode);
@@ -45,13 +45,13 @@ public class Pathfinding : MonoBehaviour {
 					continue;
 				}
 
-				int newCostToNeighbour = node.gCost + GetDistance(node, neighbour);
+				int newCostToNeighbour = node.gCost + GetDistance(node, neighbour); //check to see if the new node has a shorter path than the old node
 				if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
 					neighbour.gCost = newCostToNeighbour;
 					neighbour.hCost = GetDistance(neighbour, targetNode);
 					neighbour.parent = node;
 
-					if (!openSet.Contains(neighbour))
+					if (!openSet.Contains(neighbour)) //add the neighbor to the open set if it's not already in there
 						openSet.Add(neighbour);
 				}
 			}
@@ -72,8 +72,8 @@ public class Pathfinding : MonoBehaviour {
 
 	}
 
-	int GetDistance(Node nodeA, Node nodeB) {
-		int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
+	int GetDistance(Node nodeA, Node nodeB) { //get the distance between two given nodes
+		int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX); //subtract highest number by lowest number to reach the  most optimal path, so we use the absolute value
 		int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
 
 		if (dstX > dstY)

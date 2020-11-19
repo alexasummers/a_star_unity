@@ -20,7 +20,7 @@ public class Node { //doesn't need to extend monobehavior
 		gridY = _gridY;
 	}
 
-	public int fCost {
+	public int fCost { //never will have to assign to fcost-- will always be able to caluclate it from the gcost and hcost (therefore, no SET; only GET)
 		get {
 			return gCost + hCost;
 		}
