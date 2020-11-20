@@ -23,7 +23,7 @@ public class Grid : MonoBehaviour {
 		CreateGrid();
 	}
 
-	void CreateGrid() {
+	void CreateGrid() { //creates the grid of nodes and double checks for overlaps of outside grid objects
 		grid = new Node[gridSizeX,gridSizeY]; //new 2d array of nodes
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2; //returning the bottom left corner of our world
 
@@ -36,7 +36,7 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
-	public List<Node> GetNeighbours(Node node) {
+	public List<Node> GetNeighbours(Node node) { //double checks to see the neighboring nodes f, g and h costs.
 		List<Node> neighbours = new List<Node>();
 
 		for (int x = -1; x <= 1; x++) { //search in a 3x3 block to check for surrounding nodes
@@ -68,7 +68,7 @@ public class Grid : MonoBehaviour {
 		return grid[x,y]; //returning the indices of the grid array
 	}
 
-	public List<Node> path;
+	public List<Node> path; //draws the path between the two objects and changes the shortest path to black
 	void OnDrawGizmos() { //creates the box around the grid
 		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y)); //use y instead of z axis because the z axis is being represented by the y in the 3d space
 
