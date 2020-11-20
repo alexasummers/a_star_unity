@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour { //must extend monobehavior because we are using some of the funcitonality
 
-	public Transform seeker, target; //point A and point B
+	public Transform seeker, target; //point A and point B -- movable
 	Grid grid; 
-
-	void Awake() {
+// -------------------------------------------------
+	void Awake() { //getting the grid coordinates
 		grid = GetComponent<Grid> ();
 	}
-
-	void Update() {
+// -------------------------------------------------
+	void Update() { //updates the path drawn between point A and point B
 		FindPath (seeker.position, target.position);
 	}
 
-	void FindPath(Vector3 startPos, Vector3 targetPos) {
-		Node startNode = grid.NodeFromWorldPoint(startPos); //convert world positions into nodes (from Grid.cs)
-		Node targetNode = grid.NodeFromWorldPoint(targetPos);
+	void FindPath(Vector3 startPos, Vector3 targetPos) { //generates the path between point A and point B
+		Node startNode = grid.NodeFromWorldPoint(startPos); //convert world positions into nodes (from Grid.cs) Point A
+		Node targetNode = grid.NodeFromWorldPoint(targetPos); //Point B
 
 		List<Node> openSet = new List<Node>(); //creating a list of nodes for the open set-- the set that has yet to be evaluated
-		HashSet<Node> closedSet = new HashSet<Node>(); 
+		HashSet<Node> closedSet = new HashSet<Node>();  
 		openSet.Add(startNode); //add the starting node to the open set
 
 		while (openSet.Count > 0) {
