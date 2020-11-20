@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node { //doesn't need to extend monobehavior 
+public class Node { //doesn't need to extend monobehavior because the functionality provided is not used here
 	
-	public bool walkable;
+	public bool walkable; //walkable true/false
 	public Vector3 worldPosition; //what point in the world the node represents
 	public int gridX;
 	public int gridY;
