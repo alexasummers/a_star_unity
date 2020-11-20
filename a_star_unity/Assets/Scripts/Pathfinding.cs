@@ -19,8 +19,9 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 		Node startNode = grid.NodeFromWorldPoint(startPos); //convert world positions into nodes (from Grid.cs) Point A
 		Node targetNode = grid.NodeFromWorldPoint(targetPos); //Point B
 
-		List<Node> openSet = new List<Node>(); //creating a list of nodes for the open set-- the set that has yet to be evaluated
-		HashSet<Node> closedSet = new HashSet<Node>();  
+		List<Node> openSet = new List<Node>(); //creating a list of nodes for the open set-- the set that has yet to be evaluated. List is used because it is fast to access and easy to add and take away from
+		HashSet<Node> closedSet = new HashSet<Node>();  //creating a hashset of nodes for the closed set -- the set that has already been evaluated and/or visited. Create a hashset
+		//rather than a list for this one because it is just a collection of keys that is quickly testable
 		openSet.Add(startNode); //add the starting node to the open set
 
 		while (openSet.Count > 0) {
