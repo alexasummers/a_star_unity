@@ -5,15 +5,22 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour { //must extend monobehavior because we are using some of the funcitonality
 
 	public Transform seeker, target; //point A and point B -- movable
-	Grid grid; 
-// -------------------------------------------------
-	void Awake() { //getting the grid coordinates
-		grid = GetComponent<Grid> ();
+	Grid grid; //creating a reference to our grid
+
+
+	void Awake() { //getting the grid
+		grid = GetComponent<Grid> (); //must be on the same game object, which is our Grid
 	}
-// -------------------------------------------------
-	void Update() { //updates the path drawn between point A and point B
+
+
+//-------------------------------------------------------------
+	//DO THE UPDATE() LAST
+	void Update() { //updates the path drawn between point A and point B as we move the points
 		FindPath (seeker.position, target.position);
 	}
+//-------------------------------------------------------------
+
+
 
 	void FindPath(Vector3 startPos, Vector3 targetPos) { //generates the path between point A and point B
 		Node startNode = grid.NodeFromWorldPoint(startPos); //convert world positions into nodes (from Grid.cs, NodeFromWorldPoint) Point A
@@ -40,6 +47,8 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 			closedSet.Add(node); //add the current node to the closed set
 
 			if (node == targetNode) {//when we have found our path, we want to go ahead and trace it from point a to point b
+
+//GO DOWN AND DEFINE RETRACE PATH
 				RetracePath(startNode,targetNode);
 				return;
 			}
@@ -64,15 +73,15 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 
 	void RetracePath(Node startNode, Node endNode) {
 		List<Node> path = new List<Node>();
-		Node currentNode = endNode;
+		Node currentNode = endNode; //which will trace the path backwards because that's how the parents work
 
 		while (currentNode != startNode) {
-			path.Add(currentNode);
-			currentNode = currentNode.parent;
+			path.Add(currentNode); //add the current node to our path
+			currentNode = currentNode.parent;//retraces our steps from the ending node back to the starting node
 		}
-		path.Reverse();
+		path.Reverse(); //since the path is in reverse, we'll go ahead and reverse it again to make it go the correct direction
 
-		grid.path = path;
+		grid.path = path; //this will draw our path out with the Gizmos function, which was defined in our Grid.CS (line 78-80)
 
 	}
 

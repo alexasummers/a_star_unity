@@ -74,10 +74,10 @@ public class Grid : MonoBehaviour {
 
 		if (grid != null) {
 			foreach (Node n in grid) {
-				Gizmos.color = (n.walkable)?Color.white:Color.red;
-				if (path != null)
-					if (path.Contains(n))
-						Gizmos.color = Color.black;
+				Gizmos.color = (n.walkable)?Color.white:Color.red; //distinguishing an obstacle from open ground
+				if (path != null) //used in RetracePath from Pathfinding.CS to trace the path between the starting node and ending node
+					if (path.Contains(n)) //used in RetracePath from Pathfinding.CS to trace the path between the starting node and ending node
+						Gizmos.color = Color.black; //used in RetracePath from Pathfinding.CS to trace the path between the starting node and ending node
 				Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
 			}
 		}
