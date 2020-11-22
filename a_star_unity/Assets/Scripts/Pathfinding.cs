@@ -26,10 +26,10 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 		//rather than a list for this one because it is easy to add to and take away from
 		openSet.Add(startNode); //add the starting node to the open set
 
-		while (openSet.Count > 0) {
+		while (openSet.Count > 0) {//iterate through the open set
 			Node node = openSet[0]; //equal to the first element in the open set
-			for (int i = 1; i < openSet.Count; i ++) { //loop through all thenodes in the open set
-			// to find the node with the lowest f-cost. i=1 because we're started at index zero in the open set.
+			for (int i = 1; i < openSet.Count; i ++) { //loop through all thenodes in the open set to find the node with the lowest fcost.
+			//i=1 because we're started at index zero in the open set.
 				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost) { //if the node in the open set has a less than the current node's Fcost, 
 					if (openSet[i].hCost < node.hCost) //evaluate the hCosts of the newly found nodes to make sure they are in fact closer to reach the end point than the original
 						node = openSet[i]; //then the current node is updated with the index of the node in the open set
@@ -37,9 +37,9 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 			}
 
 			openSet.Remove(node); //remove the current node from the open set
-			closedSet.Add(node); //add the cuirrent node to the closed set
+			closedSet.Add(node); //add the current node to the closed set
 
-			if (node == targetNode) {
+			if (node == targetNode) {//when we have found our path, we want to go ahead and trace it from point a to point b
 				RetracePath(startNode,targetNode);
 				return;
 			}
