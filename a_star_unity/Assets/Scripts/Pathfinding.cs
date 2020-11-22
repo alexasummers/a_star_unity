@@ -44,18 +44,18 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 				return;
 			}
 
-			foreach (Node neighbor in grid.Getneighbors(node)) {
-				if (!neighbor.walkable || closedSet.Contains(neighbor)) {
+			foreach (Node neighbor in grid.Getneighbors(node)) { //checking the neighboring node's f, g and hcosts-- defined in Grid.CS
+				if (!neighbor.walkable || closedSet.Contains(neighbor)) { //if the neighboring node has an obstacle, it can get added to the closed set.
 					continue;
 				}
+//GO DOWN AND DEFINE GETDISTANCE AT THE BOTTOM
+				int newCostToNeighbor = node.gCost + GetDistance(node, neighbor); //check to see if the new node has a shorter path than the old node. Cost of the current node's gcost plus the distance of the current node to the neighbor
+				if (newCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor)) {//or if the neighbor is not currently in the open list
+					neighbor.gCost = newCostToNeighbor; //newCostToNeighbor is now the gCost
+					neighbor.hCost = GetDistance(neighbor, targetNode); //the hcost is equal to the distance from the node we're looking at to the end node
+					neighbor.parent = node; //parent is defined in Node.CS--want to set the current node to be the neighbor's parent.
 
-				int newCostToneighbor = node.gCost + GetDistance(node, neighbor); //check to see if the new node has a shorter path than the old node
-				if (newCostToneighbor < neighbor.gCost || !openSet.Contains(neighbor)) {
-					neighbor.gCost = newCostToneighbor;
-					neighbor.hCost = GetDistance(neighbor, targetNode);
-					neighbor.parent = node;
-
-					if (!openSet.Contains(neighbor)) //add the neighbor to the open set if it's not already in there
+					if (!openSet.Contains(neighbor)) //check to see if the neigbor is in the open set. If not, add it to the open set.
 						openSet.Add(neighbor);
 				}
 			}
@@ -80,8 +80,9 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 		int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX); //subtract highest number by lowest number to reach the  most optimal path, so we use the absolute value
 		int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
 
-		if (dstX > dstY)
-			return 14*dstY + 10* (dstX-dstY);
+		if (dstX > dstY) //basically will calcualte how many moves we need.
+			return 14*dstY + 10* (dstX-dstY); //14 is because that's how much each diagonal move costs, and 10 is because that's how much each horizontal/vertical move costs.
+		//but if dstx is less than dstY, then we'll flip so the smaller number is being subtracted from the bigger one
 		return 14*dstX + 10 * (dstY-dstX);
 	}
 }
