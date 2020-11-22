@@ -16,20 +16,23 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 	}
 
 	void FindPath(Vector3 startPos, Vector3 targetPos) { //generates the path between point A and point B
-		Node startNode = grid.NodeFromWorldPoint(startPos); //convert world positions into nodes (from Grid.cs) Point A
+		Node startNode = grid.NodeFromWorldPoint(startPos); //convert world positions into nodes (from Grid.cs, NodeFromWorldPoint) Point A
 		Node targetNode = grid.NodeFromWorldPoint(targetPos); //Point B
 
-		List<Node> openSet = new List<Node>(); //creating a list of nodes for the open set-- the set that has yet to be evaluated. List is used because it is fast to access and easy to add and take away from
+		List<Node> openSet = new List<Node>(); //creating a list of nodes for the open set-- the set that has yet to be evaluated. List is used because 
+		//we can search for the node with the lowest fCost and easy to add and take away from
+		//This is the most expensive part of this, so it can be optimized but since this is a basic implementation, we're not getting into that.
 		HashSet<Node> closedSet = new HashSet<Node>();  //creating a hashset of nodes for the closed set -- the set that has already been evaluated and/or visited. Create a hashset
-		//rather than a list for this one because it is just a collection of keys that is quickly testable
+		//rather than a list for this one because it is easy to add to and take away from
 		openSet.Add(startNode); //add the starting node to the open set
 
 		while (openSet.Count > 0) {
-			Node node = openSet[0]; 
-			for (int i = 1; i < openSet.Count; i ++) { //loop through all the open nodes to find the node with the lowest f-cost
-				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost) {
+			Node node = openSet[0]; //equal to the first element in the open set
+			for (int i = 1; i < openSet.Count; i ++) { //loop through all thenodes in the open set
+			// to find the node with the lowest f-cost. i=1 because we're started at index zero in the open set.
+				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost) { //if the node in the open set has a less than the current node's Fcost, 
 					if (openSet[i].hCost < node.hCost) //evaluate the hCosts of the newly found nodes to make sure they are in fact closer to reach the end point than the original
-						node = openSet[i];
+						node = openSet[i]; //then the current node is updated with the index of the node in the open set
 				}
 			}
 

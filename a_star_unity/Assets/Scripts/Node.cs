@@ -9,7 +9,7 @@ public class Node { //doesn't need to extend monobehavior because the functional
 	public int gridX;
 	public int gridY;
 
-	public int gCost;
+	public int gCost; //these are already declared for time element-- these are used in the pathfinding.cs to calculate the node evaluations
 	public int hCost;
 	public Node parent;
 	
