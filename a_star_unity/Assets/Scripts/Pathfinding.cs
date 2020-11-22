@@ -44,19 +44,19 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 				return;
 			}
 
-			foreach (Node neighbour in grid.GetNeighbours(node)) {
-				if (!neighbour.walkable || closedSet.Contains(neighbour)) {
+			foreach (Node neighbor in grid.Getneighbors(node)) {
+				if (!neighbor.walkable || closedSet.Contains(neighbor)) {
 					continue;
 				}
 
-				int newCostToNeighbour = node.gCost + GetDistance(node, neighbour); //check to see if the new node has a shorter path than the old node
-				if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
-					neighbour.gCost = newCostToNeighbour;
-					neighbour.hCost = GetDistance(neighbour, targetNode);
-					neighbour.parent = node;
+				int newCostToneighbor = node.gCost + GetDistance(node, neighbor); //check to see if the new node has a shorter path than the old node
+				if (newCostToneighbor < neighbor.gCost || !openSet.Contains(neighbor)) {
+					neighbor.gCost = newCostToneighbor;
+					neighbor.hCost = GetDistance(neighbor, targetNode);
+					neighbor.parent = node;
 
-					if (!openSet.Contains(neighbour)) //add the neighbor to the open set if it's not already in there
-						openSet.Add(neighbour);
+					if (!openSet.Contains(neighbor)) //add the neighbor to the open set if it's not already in there
+						openSet.Add(neighbor);
 				}
 			}
 		}

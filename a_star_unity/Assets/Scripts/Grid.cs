@@ -36,8 +36,8 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
-	public List<Node> GetNeighbours(Node node) { //double checks to see the neighboring nodes f, g and h costs.
-		List<Node> neighbours = new List<Node>();
+	public List<Node> Getneighbors(Node node) { //double checks to see the neighboring nodes f, g and h costs.
+		List<Node> neighbors = new List<Node>();
 
 		for (int x = -1; x <= 1; x++) { //search in a 3x3 block to check for surrounding nodes
 			for (int y = -1; y <= 1; y++) {
@@ -48,12 +48,12 @@ public class Grid : MonoBehaviour {
 				int checkY = node.gridY + y;
 
 				if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY) { //make sure the node is inside the grid
-					neighbours.Add(grid[checkX,checkY]);
+					neighbors.Add(grid[checkX,checkY]);
 				}
 			}
 		}
 
-		return neighbours;
+		return neighbors;
 	}
 	
 
