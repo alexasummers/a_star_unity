@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic; //using a list
 using UnityEngine;
 
-public class Pathfinding : MonoBehaviour { //must extend monobehavior because we are using some of the funcitonality
+public class Pathfinding : MonoBehaviour { //must extend monobehavior because we are using Awake() and Update()
 
 
 	void Awake() { //getting the grid
