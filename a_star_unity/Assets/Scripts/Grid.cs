@@ -2,6 +2,9 @@
 using System.Collections.Generic; //added to use a list
 using UnityEngine;
 
+//This class will create our layermask that hides part of a layer without erasing or deleting it for the purpose of our obstacles, it will create and populate
+//our grid with nodes, it will check the neighboring nodes cost values, and it will draw our physical path between our seeker and target.
+
 public class Grid : MonoBehaviour {
 
 	public LayerMask unwalkableMask;

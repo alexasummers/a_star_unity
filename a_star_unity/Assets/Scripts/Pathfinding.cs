@@ -35,7 +35,7 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 
 		while (openSet.Count > 0) {//iterate through the open set
 			Node node = openSet[0]; //equal to the first element in the open set
-			for (int i = 1; i < openSet.Count; i ++) { //loop through all thenodes in the open set to find the node with the lowest fcost.
+			for (int i = 1; i < openSet.Count; i ++) { //loop through all the nodes in the open set to find the node with the lowest fcost.
 			//i=1 because we're started at index zero in the open set.
 				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost) { //if the node in the open set has a less than the current node's Fcost, 
 					if (openSet[i].hCost < node.hCost) //evaluate the hCosts of the newly found nodes to make sure they are in fact closer to reach the end point than the original
@@ -48,7 +48,6 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 
 			if (node == targetNode) {//when we have found our path, we want to go ahead and trace it from point a to point b
 
-//GO DOWN AND DEFINE RETRACE PATH
 				RetracePath(startNode,targetNode);
 				return;
 			}
@@ -57,7 +56,6 @@ public class Pathfinding : MonoBehaviour { //must extend monobehavior because we
 				if (!neighbor.walkable || closedSet.Contains(neighbor)) { //if the neighboring node has an obstacle, it can get added to the closed set.
 					continue;
 				}
-//GO DOWN AND DEFINE GETDISTANCE AT THE BOTTOM
 				int newCostToNeighbor = node.gCost + GetDistance(node, neighbor); //check to see if the new node has a shorter path than the old node. Cost of the current node's gcost plus the distance of the current node to the neighbor
 				if (newCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor)) {//or if the neighbor is not currently in the open list
 					neighbor.gCost = newCostToNeighbor; //newCostToNeighbor is now the gCost
