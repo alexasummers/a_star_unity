@@ -71,7 +71,8 @@ public class Grid : MonoBehaviour {
 		return grid[x,y]; //returning the indices of the grid array
 	}
 
-	public List<Node> path; //draws the path between the two objects and changes the shortest path to black
+	public List<Node> path; //draws the path between the two objects and changes the shortest path to black, draws a box around our grid to keep everything inside,
+	//will distinguish an obstacle from open ground visually
 	void OnDrawGizmos() { //creates the box around the grid
 		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y)); //use y instead of z axis because the z axis is being represented by the y in the 3d space
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
 
-	public LayerMask unwalkableMask;
+	public LayerMask unwalkableMask; //layermask for obstacle functionality
 	public Vector2 gridWorldSize;
 	public float nodeRadius; 
 	Node[,] grid; 
@@ -12,14 +12,14 @@ public class Grid : MonoBehaviour {
 	float nodeDiameter;
 	int gridSizeX, gridSizeY;
 
-	void Awake() {
+	void Awake() { //based on the radius
 		nodeDiameter = nodeRadius*2;
 		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
 		CreateGrid();
 	}
 
-	void CreateGrid() {
+	void CreateGrid() { //creates grid & checks for overlaps
 		grid = new Node[gridSizeX,gridSizeY];
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2;
 
@@ -32,7 +32,7 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
-	public List<Node> Getneighbors(Node node) {
+	public List<Node> Getneighbors(Node node) { //neighboring node cost check
 		List<Node> neighbors = new List<Node>();
 
 		for (int x = -1; x <= 1; x++) {
@@ -53,7 +53,7 @@ public class Grid : MonoBehaviour {
 	}
 	
 
-	public Node NodeFromWorldPoint(Vector3 worldPosition) {
+	public Node NodeFromWorldPoint(Vector3 worldPosition) { //world position -> grid coordinate
 		float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
 		float percentY = (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y;
 		percentX = Mathf.Clamp01(percentX);
@@ -64,7 +64,7 @@ public class Grid : MonoBehaviour {
 		return grid[x,y];
 	}
 
-	public List<Node> path;
+	public List<Node> path; //path functionality
 	void OnDrawGizmos() {
 		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
 
