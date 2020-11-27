@@ -16,26 +16,27 @@ public class Pathfinding : MonoBehaviour { //Awake(), Update()
 	}
 
 	void FindPath(Vector3 startPos, Vector3 targetPos) { //generates the path between point A and point B
-		Node startNode = grid.NodeFromWorldPoint(startPos);
-		Node targetNode = grid.NodeFromWorldPoint(targetPos);
+	Node startNode = grid.NodeFromWorldPoint(startPos);
+	Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
-		List<Node> openSet = new List<Node>();
-		HashSet<Node> closedSet = new HashSet<Node>();
+	List<Node> openSet = new List<Node>();
+	HashSet<Node> closedSet = new HashSet<Node>();
 
-		openSet.Add(startNode);
+	openSet.Add(startNode);
 
-		while (openSet.Count > 0) {
-			Node node = openSet[0];
-			for (int i = 1; i < openSet.Count; i++ {
-				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost) {
-					if (openSet[i].hCost < node.hCost)
-					node = openSet[i];
-				}
+	while (openSet.Count > 0) {
+		Node node = openSet[0];
+
+		for (int i = 1; i < openSet.Count; i++) {
+			if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost) {
+				if (openSet[i].hCost < node.hCost)
+				node = openSet[i];
 			}
-			openSet.Remove(node);
-			closedSet.Add(node);
+		}
+		openSet.Remove(node);
+		closedSet.Add(node);
 
-			if (node == targetNode)
+		if (node == targetNode) {
 
 			RetracePath(startNode, targetNode);
 			return;
@@ -47,7 +48,7 @@ public class Pathfinding : MonoBehaviour { //Awake(), Update()
 			}
 
 			int newCostToNeighbor = node.gCost + GetDistance(node, neighbor);
-			if (newCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor)) {
+			if (newcostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor)) {
 				neighbor.gCost = newCostToNeighbor;
 				neighbor.hCost = GetDistance(neighbor, targetNode);
 				neighbor.parent = node;
@@ -56,6 +57,8 @@ public class Pathfinding : MonoBehaviour { //Awake(), Update()
 				openSet.Add(neighbor);
 			}
 		}
+	}
+	
 	}
 
 	void RetracePath(Node startNode, Node endNode) { //retraces the path between point A and point B
@@ -76,7 +79,7 @@ public class Pathfinding : MonoBehaviour { //Awake(), Update()
 		int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
 
 		if (dstX > dstY) 
-			return 14*dstY + 10* (dstX-dstY);
+			return 14*dstY + 10* (dstX-dstY); //10 for up/down, 14 for diagonal
 		return 14*dstX + 10 * (dstY-dstX);
     }
 
